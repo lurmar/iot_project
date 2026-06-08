@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <atomic>
 
 struct empleado{
     std::string nombre;
@@ -19,6 +20,9 @@ struct equipos{
 
 class MQTTPublisher : public mosqpp::mosquittopp {
 public:
+    std::atomic<bool> conectado {false}; //Alzamos un Semaforo atomico para que no leamos en el main un dato corrupto
+    // dado que lo editamos en on_conect(), de esta manera, nos aseguramos que main leera una vez que on_conect() termine de escribir.
+
     MQTTPublisher(const char* id, const char* host, int port)
         : mosquittopp(id)
     {
@@ -29,13 +33,17 @@ public:
             "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.key",
             nullptr
             );
-        connect(host, port, 8883);
+        connect(host, port, 60);
     }
 
-    /*void on_connect(int rc) override {
+    void on_connect(int rc) override {
         if (rc == 0) {
+            std::cout << "Conectado al broker con TLS\n";
+            conectado = true;  
+        } else {
+            std::cout << "Error de conexion: " << rc << "\n";
         }
-    }*/
+    }
 
     void on_publish(int mid) override {
         std::cout << "Mensaje publicado (mid=" << mid << ")\n";
@@ -45,8 +53,21 @@ public:
 int main() {
     mosqpp::lib_init();
 
-    MQTTPublisher pub("publisher-01", "localhost", 1883);
-    pub.loop_start();   // Loop en hilo separado
+    MQTTPublisher pub("publisher-01", "localhost", 8883);
+    pub.loop_start(); 
+
+    int intentos=0;
+    while(!pub.conectado && intentos < 10){
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+        intentos++;
+    }
+
+    if(!pub.conectado){
+        std::cout<< "No se pudo conectar al Broker con\n";
+        pub.loop_stop();
+        mosqpp::lib_cleanup();
+        return 1;
+    }
 
     //vector->array que se expande solo
     std::vector<empleado>empleados={

@@ -25,7 +25,7 @@ public:
             "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.key",
             nullptr
             );
-        connect(host, port, 8883);
+        connect(host, port, 60);
     }
 
     void on_connect(int rc) override {
@@ -77,7 +77,7 @@ void alSalir(int signal) {
 
 int main() {
     mosqpp::lib_init();
-    MQTTClient client("subscriber-01", "localhost", 1883);
+    MQTTClient client("subscriber-01", "localhost", 8883);
     clienteGlobal = &client; //apuntamos al objeto client
 
     signal(SIGINT, alSalir);
