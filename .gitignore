@@ -12,6 +12,9 @@ subscriber
 build/
 cmake-build-debug/
 cmake-build-release/
+certificados/broker#
+certificados/ca#
+certificados/cliente#
 
 # CMake
 CMakeCache.txt
