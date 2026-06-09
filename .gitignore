@@ -8,6 +8,7 @@
 publisher
 subscriber
 token
+Makefile
 
 # Carpetas de build
 build/

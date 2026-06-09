@@ -1,5 +1,6 @@
 #include <iostream>
 #include <mosquittopp.h>
+#include <mosquitto/libmosquittopp.h>
 #include <string>
 #include <vector>
 #include <thread>
@@ -25,14 +26,29 @@ public:
 
     MQTTPublisher(const char* id, const char* host, int port)
         : mosquittopp(id)
-    {
-        tls_set(
-            "/etc/mosquitto/certificados/ca.crt",
-            nullptr,
-            "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.crt",
-            "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.key",
-            nullptr
-            );
+     {
+        std::cout<< "¿Esta trabajando en MacOS o en Linux? (M/L)\n";
+        char so;
+        std::cin >> so;
+        if (so == 'M'){
+            // Configuración para MacOS
+            tls_set(
+                "/opt/homebrew/etc/mosquitto/certificados/ca.crt",
+                nullptr,
+                "/Users/lurm4r/Desktop/C++/mqtt_project/certificados/cliente.crt",
+                "/Users/lurm4r/Desktop/C++/mqtt_project/certificados/cliente.key",
+                nullptr
+                );
+        } else {
+            // Configuración para Linux
+            tls_set(
+                "/etc/mosquitto/certificados/ca.crt",
+                nullptr,
+                "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.crt",
+                "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.key",
+                nullptr
+                );
+        }
         connect(host, port, 60);
     }
 
