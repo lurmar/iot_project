@@ -11,18 +11,9 @@ token
 Makefile
 
 # Carpetas de build
-build/
-cmake-build-debug/
-cmake-build-release/
 certificados/broker*
 certificados/ca*
 certificados/cliente*
-
-# CMake
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
 
 # IDEs
 .vscode/

@@ -4,9 +4,9 @@
 
 ```bash
 sudo apt install openssl mosquitto libmosquitto-dev libmosquittopp-dev
+```zsh (MacOS)
+brew install mosquitto (las librerias pal makefile -->`-L/opt/homebrew/lib -lmosquittopp -lmosquitto`) 
 ```
-
----
 
 ## 1. Generar certificados
 
@@ -43,20 +43,29 @@ Archivos generados:
 
 ## 2. Configurar Mosquitto
 
-Editar `/etc/mosquitto/mosquitto.conf`:
+```bash
+# Linux editar
+nano /etc/mosquitto/mosquitto.conf 
+# MacOS
+nano /opt/homebrew/etc/mosquitto/mosquitto.conf
+```
 
-```conf
-listener 1883
-
+```
 listener 8883
 cafile   /ruta/certificados/ca.crt
 certfile /ruta/certificados/broker.crt
 keyfile  /ruta/certificados/broker.key
-require_certificate true
+equire_certificate true
+allow_anonymous true
+
+log_dest stdout
+log_type all
 ```
 
 Reiniciar el broker:
 
 ```bash
 sudo systemctl restart mosquitto
+```zsh (MacOS)
+brew services restart mosquitto
 ```
