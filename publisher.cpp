@@ -27,28 +27,6 @@ public:
     MQTTPublisher(const char* id, const char* host, int port)
         : mosquittopp(id)
      {
-        std::cout<< "¿Esta trabajando en MacOS o en Linux? (M/L)\n";
-        char so;
-        std::cin >> so;
-        if (so == 'M'){
-            // Configuración para MacOS
-            tls_set(
-                "/opt/homebrew/etc/mosquitto/certificados/ca.crt",
-                nullptr,
-                "/Users/lurm4r/Desktop/C++/mqtt_project/certificados/cliente.crt",
-                "/Users/lurm4r/Desktop/C++/mqtt_project/certificados/cliente.key",
-                nullptr
-                );
-        } else {
-            // Configuración para Linux
-            tls_set(
-                "/etc/mosquitto/certificados/ca.crt",
-                nullptr,
-                "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.crt",
-                "/home/lurmar/Desktop/C++/Pruebas/mqtt_project/certificados/cliente.key",
-                nullptr
-                );
-        }
         connect(host, port, 60);
     }
 
@@ -69,7 +47,7 @@ public:
 int main() {
     mosqpp::lib_init();
 
-    MQTTPublisher pub("publisher-01", "localhost", 8883);
+    MQTTPublisher pub("publisher-01", "localhost", 1883);
     pub.loop_start(); 
 
     int intentos=0;

@@ -1,25 +1,9 @@
-# Compilados
-*.o
-*.a
-*.so
-*.out
-
 # Ejecutables (sin extensión, como publisher y subscriber)
 publisher
 subscriber
 token
-Makefile
 
 # Carpetas de build
 certificados/broker*
 certificados/ca*
 certificados/cliente*
-
-# IDEs
-.vscode/
-.idea/
-*.user
-
-# Temporales
-*.log
-*.tmp
