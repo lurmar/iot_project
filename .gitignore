@@ -1,6 +1,7 @@
 # Ejecutables (sin extensión, como publisher y subscriber)
 publisher
 subscriber
+menu
 token
 
 # Carpetas de build
