@@ -82,10 +82,10 @@ Se containerizará Mosquitto con la configuración personalizada. La imagen base
  
 ## Próximas funcionalidades
  
-- [ ] Chat con IA local mediante Ollama con contexto de EvSare
-- [ ] Containerización de Mosquitto (Docker)
-- [ ] Visualización de logs del proxy-OCPP
-- [ ] Gestión de sesiones OCPP desde el menú
+- Chat con IA local mediante Ollama con contexto de empresa
+- Containerización de Mosquitto (Docker)
+- Visualización de logs del proxy-OCPP
+- Gestión de sesiones OCPP desde el menú
 ---
  
 ## Certificados
