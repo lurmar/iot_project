@@ -19,7 +19,7 @@ publisher: publisher.cpp
 	$(CXX) publisher.cpp -o publisher $(CXXFLAGS) $(LDFLAGS)
 
 menu: menu.cpp
-	$(CXX) menu.cpp -o menu
+	$(CXX) menu.cpp MQTTManager.cpp Logger.cpp -o menu
 
 
 # Docker
