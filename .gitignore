@@ -10,3 +10,4 @@ certificados/ca*
 certificados/cliente*
 src/logs_mosquitto.txt
 ollama/venvpy
+ollama/Modelfile
