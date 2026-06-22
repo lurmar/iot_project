@@ -114,4 +114,4 @@ Ver `certificados/README.md` para la configuración TLS.
 
 ## Autor
 
-**Unai Rodríguez Lozano | lurmar** — [[LinkedIn](https://www.linkedin.com/in/unai-rodr%C3%ADguez-lozano-7a1b94404/)](#) | [GitHub](#)
+**Unai Rodríguez Lozano | lurmar** — [LinkedIn](https://www.linkedin.com/in/unai-rodr%C3%ADguez-lozano-7a1b94404/) | [GitHub](https://github.com/lurmar)
