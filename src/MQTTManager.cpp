@@ -3,14 +3,25 @@
 #include <cstdlib>
 
 bool MQTTManager::isRunning(){
-    FILE* pipe=popen("pgrep -x subscriber", "r"); //abrimos un pipe ejecuta el comando y luego lo lee "r", pgrep nos da el PID del proceso, "-x" coincidencia exacta debe ser
+    std::cout<<"\nComprobando que el mosquitto y el suscriptor funcionan correctamente...\n";
+    
+    FILE* pipe = popen("pgrep -x subscriber", "r");
     if(!pipe) return false;
-
     char buf[256];
-    bool found = fgets(buf,sizeof(buf),pipe)!=nullptr; //intenta leer algo del buf, si leyó algo found es true si no es false (!=nullptr)
+    bool subscriber_ok = fgets(buf, sizeof(buf), pipe) != nullptr; //Condicion, de que no sea un puntero libre, es decir, que haya algo que leer.
     pclose(pipe);
 
-    return found;
+    FILE* pipe_M = popen("pgrep -x mosquitto", "r");
+    if(!pipe_M) return false;
+    bool mosquitto_ok = fgets(buf, sizeof(buf), pipe_M) != nullptr;
+    pclose(pipe_M);
+
+    if(!mosquitto_ok) {
+        std::cout << "Mosquitto no está corriendo. Arráncalo primero.\n";
+        return false;
+    }
+
+    return subscriber_ok && mosquitto_ok;
 }
 
 void MQTTManager::stop() {

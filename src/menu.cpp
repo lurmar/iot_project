@@ -2,30 +2,19 @@
 #include<math.h>
 #include "MQTTManager.h"
 #include "Logger.h"
+#include "Menu.h"
+#include "Colores.h"
 
-#define RESET   "\033[0m"
-#define BOLD    "\033[1m"
-#define CYAN    "\033[36m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define RED     "\033[31m"
 
 int main (){
 
 MQTTManager mqtt;
 Logger log;
+Menu menu;
 
     while(true){
-        int opcion;
-        std::cout << BOLD << CYAN << "\n\tGestión de Servicios\n" << RESET;
-        std::cout << GREEN << "1." << RESET << " Inicializar prueba con subscriber y publisher\n";
-        std::cout << GREEN  << "2." << RESET << " Ver los logs del mosquitto\n";
-        std::cout << GREEN  << "3." << RESET << " Parsear los logs del mosquitto a un .txt\n";
-        std::cout << GREEN<< "4." << RESET << " Hablar con una IA local\n";
-        std::cout << RED   << "0." << RESET << " Salir\n";
-        std::cout<<"\nTeclee la opcion deseada: ";
-        std::cin>>opcion;
-
+        menu.display();
+        int opcion=menu.getOption();
         switch(opcion){
             
             case 1:
