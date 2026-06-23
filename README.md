@@ -21,6 +21,8 @@ mqtt_project/
 │   ├── Colores.h           # Defines de colores ANSI para la terminal
 │   ├── subscriber.cpp      # Cliente MQTT subscriber
 │   ├── publisher.cpp       # Cliente MQTT publisher
+│   ├── Watcher.cpp / Watcher.h  # Vigilante de cambios en mosquitto.conf (mientras el menu esta en uso)
+│   ├── watcher_main.cpp         # Vigilante de cambios en mosquitto.conf (en segundo plano, se necesita modificar el systemd para hacer un archivo que corra 24/7)
 │   └── Makefile            # Compilación del proyecto
 ├── certificados/           # Certificados TLS (ver README interno)
 └── mi-mosquitto.tar        # Imagen del contenedor Mosquitto (arm64)
@@ -80,6 +82,44 @@ menu (C++)
   │                → comprueba estado de Mosquitto y subscriber via pgrep
   ├── Logger      → muestra y exporta logs de Mosquitto
   └── Menu        → gestiona la entrada del usuario con validación
+```
+
+---
+
+## Watcher — Vigilancia de mosquitto.conf
+
+Proceso independiente que monitoriza `/etc/mosquitto/mosquitto.conf` en tiempo real mediante `inotify`. Cuando detecta un cambio manda un email automáticamente con la fecha y el contenido del fichero.
+
+### Requisitos
+- `msmtp` instalado y configurado con una cuenta de email
+
+```bash
+sudo apt install msmtp
+```
+
+### Configurar como servicio del sistema
+
+```bash
+sudo nano /etc/systemd/system/iot-watcher.service
+```
+
+```ini
+[Unit]
+Description=IoT Watcher - Vigilancia mosquitto.conf
+
+[Service]
+User=TU_USUARIO
+ExecStart=/ruta/a/iot_project/src/watcher
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable iot-watcher
+sudo systemctl start iot-watcher
 ```
 
 ---

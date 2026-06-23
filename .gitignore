@@ -3,6 +3,7 @@ publisher
 subscriber
 menu
 token
+watcher
 
 # Carpetas de build
 certificados/broker*

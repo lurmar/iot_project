@@ -21,6 +21,9 @@ publisher: publisher.cpp
 menu: menu.cpp
 	$(CXX) menu.cpp MQTTManager.cpp Logger.cpp Menu.cpp -o menu
 
+watcher: watcher_main.cpp Watcher.cpp
+	$(CXX) watcher_main.cpp Watcher.cpp -o watcher $(CXXFLAGS)
+
 
 # Docker
 broker:
@@ -42,4 +45,4 @@ status:
 rebuild: clean all
 
 clean:
-	rm -f subscriber publisher menu
+	rm -f subscriber publisher menu watcher
