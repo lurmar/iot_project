@@ -11,4 +11,5 @@ certificados/ca*
 certificados/cliente*
 src/logs_mosquitto.txt
 ollama/venvpy
-ollama/Modelfile
+ollama/Modelfile.DS_Store
+**/.DS_Store
