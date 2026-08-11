@@ -1,4 +1,4 @@
-# mqtt_project
+# iot_project
 
 ![C++](https://img.shields.io/badge/C++-17-blue?logo=cplusplus)
 ![MQTT](https://img.shields.io/badge/MQTT-Mosquitto-orange)
